@@ -23,7 +23,7 @@ docker build -t my_mysql src/mysql
 docker build -t my_phpmyadmin src/phpmyadmin 
 docker build -t my_ftps src/ftps 
 docker build -t my_grafana src/grafana 
-#docker build -t my_influxdb src/influxdb 
+docker build -t my_influxdb src/influxdb 
 echo "${BLUE}Docker build completed${END}"
 
 # Apply yaml resources.
@@ -37,7 +37,7 @@ kubectl apply -f src/ftps/ftps.yaml
 kubectl apply -f src/phpmyadmin/phpmyadmin.yaml
 kubectl apply -f src/wordpress/wordpress.yaml
 kubectl apply -f src/grafana/grafana.yaml
-#kubectl apply -f src/influxdb/influxdb.yaml
+kubectl apply -f src/influxdb/influxdb.yaml
 echo "${BLUE}Deploy completed${END}"
 
 # Setup metalLB secret.
