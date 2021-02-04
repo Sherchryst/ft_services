@@ -47,6 +47,6 @@ spec:
         app: nginx
     spec:
       containers:
-      - image: nginx-service
+      - image: my_nginx
         imagePullPolicy: Never
         name: nginx
