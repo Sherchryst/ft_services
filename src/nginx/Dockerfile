@@ -1,45 +1,28 @@
-FROM alpine
+FROM	alpine
 
-LABEL sgah <sgah@student.42.fr>
+RUN		apk add nginx openssh openssl && \
+		apk add telegraf --repository http://dl-cdn.alpinelinux.org/alpine/edge/community/ --allow-untrusted --no-cache && \
+		mkdir -p /run/nginx && \
+		echo "root:password" | chpasswd && \
+		openssl req -x509 -nodes -days 365 \
+		-newkey rsa:2048 -subj "/C=FR/ST=FRANCE/L=Paris/O=42/CN=127.0.0.1" \
+		-keyout /etc/ssl/private/nginx.key -out /etc/ssl/certs/nginx.crt && \
+		openssl dhparam -dsaparam -out /etc/ssl/certs/dhparam.pem 2048
 
-#INSTALL PKG
-RUN apk update
-RUN apk add openrc --no-cache
-RUN apk add openssh
-RUN apk add openssl
-RUN apk add nginx
-RUN apk add telegraf --repository http://dl-3.alpinelinux.org/alpine/edge/testing/ --allow-untrusted --no-cache
+# Allow ssh conexion (ssh-keygen option -A: for each of the key types for which host keys do not exist,
+# generate the host keys witch the default key file path, an empty passphrase, default bits for the key type, and deafault comment).
+RUN		ssh-keygen -A
 
-# CREATE WEB SERVER
-RUN adduser -D -g 'www' www
+COPY	/srcs/sshd_config			/etc/ssh/
+COPY	/srcs/telegraf.conf			/etc/telegraf/
+COPY	/srcs/nginx.conf			/etc/nginx/
+COPY	/srcs/ssl_params.conf		/etc/nginx/
+COPY	/srcs/index.html			/var/www/
+COPY	/srcs/start.sh				/
 
-# SETUP SERVER & PERMISSION
-RUN mkdir /www
-RUN chown -R www:www /var/lib/nginx
-RUN chown -R www:www /www
-RUN mkdir -p /run/nginx
+# We customize the SSH welcome message
+RUN		echo 'Welcome to SSH of nginx by sgah' > /etc/motd
 
-# COPY CONF & HTLM PAGE
-COPY nginx.conf /etc/nginx/nginx.conf
-COPY index.html /www/index.html
+EXPOSE	80 443 22
 
-# CREATE SSH USER & SSL KEY
-RUN adduser -D user
-RUN echo "user:password"|chpasswd
-RUN ssh-keygen -A
-RUN yes "" | openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /etc/ssl/certs/localhost.key -out /etc/ssl/certs/localhost.crt
-
-# TSETUP TELEGRAF
-RUN mkdir -p /etc/telegraf
-COPY telegraf.conf /etc/telegraf/telegraf.conf
-
-# CUSTOM MESSAGE
-RUN echo 'SSH of ft_services by Sgah' > /etc/motd
-
-# COMMANDE
-COPY start.sh ./start.sh
-RUN chmod +x /start.sh
-CMD sh ./start.sh
-EXPOSE 80
-EXPOSE 443
-EXPOSE 22
+ENTRYPOINT	sh start.sh
