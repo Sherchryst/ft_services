@@ -15,6 +15,9 @@ minikube start --driver=docker
 # Use the docker daemon from minikube.
 eval $(minikube docker-env)
 
+IP=$(kubectl get node -o=custom-columns='DATA:status.addresses[0].address' | sed -n 2p)
+printf "Minikube IP: ${IP}"
+
 # Build docker images.
 echo "${GREEN}Docker build init${END}"
 docker build -t my_nginx src/nginx 
