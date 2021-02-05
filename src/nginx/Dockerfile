@@ -13,11 +13,21 @@ RUN		apk add nginx openssh openssl && \
 # generate the host keys witch the default key file path, an empty passphrase, default bits for the key type, and deafault comment).
 RUN		ssh-keygen -A
 
+# We create user that the web server will use
+RUN 	adduser -D -g 'www' www
+
+# We setup web server files and permissions
+RUN 	mkdir /www
+RUN 	chown -R www:www /var/lib/nginx
+RUN 	chown -R www:www /www
+RUN 	mkdir -p /run/nginx
+
+# Nginx config file and webpage
+COPY 	/srcs/nginx.conf			/etc/nginx/nginx.conf
+COPY 	/srcs/index.html 			/www/index.html
 COPY	/srcs/sshd_config			/etc/ssh/
 COPY	/srcs/telegraf.conf			/etc/telegraf/
-COPY	/srcs/nginx.conf			/etc/nginx/
 COPY	/srcs/ssl_params.conf		/etc/nginx/
-COPY	/srcs/index.html			/var/www/
 COPY	/srcs/start.sh				/
 
 # We customize the SSH welcome message
