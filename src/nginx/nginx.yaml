@@ -49,3 +49,12 @@ spec:
       - image: my_nginx
         imagePullPolicy: Never
         name: nginx
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: ssh-secret
+type: Opaque
+stringData:
+  SSH_USERNAME: root
+  SSH_PASSWORD: password
