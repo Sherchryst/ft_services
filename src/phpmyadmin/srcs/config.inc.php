@@ -26,7 +26,7 @@ $cfg['Servers'][$i]['AllowNoPassword'] = true;
 //$cfg['Servers'][$i]['controlhost'] = '';
  $cfg['Servers'][$i]['port'] = '3306';
  $cfg['Servers'][$i]['controluser'] = 'root';
- $cfg['Servers'][$i]['controlpass'] = 'password';
+ $cfg['Servers'][$i]['controlpass'] = 'toor';
 
 /**
  * Directories for saving/loading files from server

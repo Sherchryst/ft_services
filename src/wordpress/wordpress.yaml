@@ -42,6 +42,11 @@ spec:
     spec:
       containers:
       - image: my_wordpress
+        env:
+        - name: WORDPRESS_DB_HOST
+          value: root
+        - name: WORDPRESS_DB_PASSWORD
+          value: toor
         imagePullPolicy: Never
         name: wordpress
         ports:

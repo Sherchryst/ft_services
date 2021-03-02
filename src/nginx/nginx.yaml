@@ -57,4 +57,4 @@ metadata:
 type: Opaque
 stringData:
   SSH_USERNAME: root
-  SSH_PASSWORD: password
+  SSH_PASSWORD: toor
