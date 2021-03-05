@@ -96,6 +96,10 @@ minikube start --vm-driver=virtualbox
 # Then, creates a VM in VirtualBox within which it starts and configures a single node cluster.
 ```
 
+> FTPs verification
+```openssl s_client -connect 192.168.49.3:21 -starttls ftp -servername 192.168.49.3
+```
+
 > Common Minikube Commands
 ```shell
 # To see the kubectl configuration.
@@ -129,7 +133,7 @@ minikube dashboard
 > Deployment
 
 ```shell
-git clone https://github.com/parismart/ft_services.git
+git clone https://github.com/sherchryst/ft_services.git
 cd ft_services && sh setup.sh
 ```
 
