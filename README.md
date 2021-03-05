@@ -97,7 +97,8 @@ minikube start --vm-driver=virtualbox
 ```
 
 > FTPs verification
-```openssl s_client -connect 192.168.49.3:21 -starttls ftp -servername 192.168.49.3
+```
+openssl s_client -connect 192.168.49.3:21 -starttls ftp -servername 192.168.49.3
 ```
 
 > Common Minikube Commands
