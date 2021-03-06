@@ -48,7 +48,6 @@ kubectl create secret generic -n metallb-system memberlist  --from-literal=secre
 
 # Enable addons.
 minikube addons enable dashboard
-minikube addons enable ingress
 minikube addons enable metrics-server
 
 # Open dashboard.
