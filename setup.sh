@@ -5,6 +5,11 @@ GREEN='\e[0;32m'
 BLUE='\e[0;34m'
 END='\e[0;0m'
 
+echo "user42" | sudo -S adduser $USER docker
+echo "user42" | sudo -S chmod 666 /var/run/docker.sock
+echo "user42" | sudo -S ufw allow 20/tcp
+
+
 # Kill all processes.
 minikube delete
 killall -TERM kubectl minikube VBoxHeadless
