@@ -5,10 +5,29 @@ GREEN='\e[0;32m'
 BLUE='\e[0;34m'
 END='\e[0;0m'
 
+export PATH=/tmp/aatmp:$PATH
+
+if ! which docker; then
+  echo "user42\n" | sudo -S apt update
+  echo "user42\n" | sudo -S DEBIAN_FRONTEND=noninteractive apt -y install docker.io iptables conntrack
+fi
+
+if ! which minikube; then
+#if [ ! -f minikube ]; then
+  curl -O https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64
+  mv minikube-linux-amd64 minikube
+fi
+if ! which kubectl; then
+#if [ ! -f kubectl ]; then
+  curl -O https://storage.googleapis.com/kubernetes-release/release/`curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt`/bin/linux/amd64/kubectl
+fi
+
+chmod +x minikube
+chmod +x kubectl
+
 echo "user42" | sudo -S adduser $USER docker
 echo "user42" | sudo -S chmod 666 /var/run/docker.sock
 echo "user42" | sudo -S ufw allow 20/tcp
-
 
 # Kill all processes.
 minikube delete
