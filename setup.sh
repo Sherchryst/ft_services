@@ -5,6 +5,10 @@ GREEN='\e[0;32m'
 BLUE='\e[0;34m'
 END='\e[0;0m'
 
+DOCKER_BRIDGE_IP=$(docker network inspect bridge --format "{{(index .IPAM.Config 0).Gateway}}") # | minikube ssh)
+export EXTERNAL_IP="$(echo $DOCKER_BRIDGE_IP | cut -d. -f1-3).$(($(echo $DOCKER_BRIDGE_IP | cut -d. -f4)+1))"
+
+
 export PATH=/tmp/aatmp:$PATH
 
 if ! which docker; then
