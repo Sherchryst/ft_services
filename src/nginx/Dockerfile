@@ -6,7 +6,7 @@ RUN		apk add nginx openssh openssl && \
 		echo "root:toor" | chpasswd && \
 		ssh-keygen -A && \
 		openssl req -x509 -nodes -days 365 \
-		-newkey rsa:2048 -subj "/C=FR/ST=FRANCE/L=Paris/O=42/CN=192.168.49.3" \
+		-newkey rsa:2048 -subj "/C=FR/ST=FRANCE/L=Paris/O=42/CN=172.17.0.3" \
 		-keyout /etc/ssl/private/nginx.key -out /etc/ssl/certs/nginx.crt 
 
 # Allow ssh conexion (ssh-keygen option -A: for each of the key types for which host keys do not exist,

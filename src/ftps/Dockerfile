@@ -4,7 +4,7 @@ RUN		apk update && apk add vsftpd openssl && \
 		apk add telegraf --repository http://dl-cdn.alpinelinux.org/alpine/edge/community/ --allow-untrusted --no-cache && \
 		echo "root:toor" | chpasswd && \
 		openssl req -x509 -nodes -days 365 \
-		-newkey rsa:2048 -subj "/C=FR/ST=France/L=Paris/O=42/CN=192.168.49.3" \
+		-newkey rsa:2048 -subj "/C=FR/ST=France/L=Paris/O=42/CN=172.17.0.3" \
 		-keyout /etc/ssl/private/vsftpd.key \
 		-out /etc/ssl/certs/vsftpd.crt
 
