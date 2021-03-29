@@ -48,13 +48,13 @@ printf "Minikube IP: ${IP}"
 
 # Build docker images.
 echo "${GREEN}Docker build init${END}"
-docker build -t my_nginx src/nginx > /dev/null 2>&1
-docker build -t my_wordpress src/wordpress > /dev/null 2>&1
-docker build -t my_mysql src/mysql > /dev/null 2>&1
-docker build -t my_phpmyadmin src/phpmyadmin > /dev/null 2>&1
-docker build -t my_ftps src/ftps > /dev/null 2>&1
-docker build -t my_grafana src/grafana > /dev/null 2>&1
-docker build -t my_influxdb src/influxdb > /dev/null 2>&1
+docker build -t my_nginx src/nginx
+docker build -t my_wordpress src/wordpress
+docker build -t my_mysql src/mysql
+docker build -t my_phpmyadmin src/phpmyadmin
+docker build -t my_ftps src/ftps
+docker build -t my_grafana src/grafana
+docker build -t my_influxdb src/influxdb
 echo "${BLUE}Docker build completed${END}"
 
 # create yaml resources.
